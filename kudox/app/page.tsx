@@ -5,11 +5,9 @@ export default function Home() {
     <main className="min-h-screen min-w-[360px] flex flex-col items-center relative overflow-hidden"
       style={{ padding: '0 64px 120px 64px' }}>
 
-      {/* Background glow */}
       <div className="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(ellipse at center, rgba(200,241,53,0.07) 0%, transparent 70%)' }} />
 
-      {/* Nav */}
       <nav className="w-full max-w-4xl flex items-center justify-between relative z-10"
         style={{ paddingTop: '36px', paddingBottom: '36px' }}>
         <span style={{ fontFamily: 'Space Grotesk, sans-serif' }} className="text-xl font-bold tracking-tight">
@@ -46,7 +44,6 @@ export default function Home() {
         Kudo<span style={{ color: 'var(--accent)' }}>X</span>
       </h1>
 
-      {/* Subheading */}
       <p className="fade-up-3 text-lg md:text-xl leading-relaxed relative z-10"
         style={{ textAlign: 'center', maxWidth: '600px', marginBottom: '16px' }}>
         An AI-powered eating decision &amp; cooking assistant.
@@ -56,7 +53,6 @@ export default function Home() {
         Tell us what you have. We&apos;ll tell you what to make.
       </p>
 
-      {/* Pills */}
       <div className="fade-up-4 flex flex-wrap gap-2 justify-center relative z-10"
         style={{ marginBottom: '48px', maxWidth: '600px' }}>
         {['🍳 Recipe Generator', '🎯 Meal Decider', '🌏 10+ Cuisines', '⚡ Instant AI'].map(p => (
@@ -67,7 +63,6 @@ export default function Home() {
         ))}
       </div>
 
-      {/* CTA */}
       <div className="fade-up-5 relative z-10" style={{ marginBottom: '80px', maxWidth: '900px', width: '100%', display: 'flex', justifyContent: 'center' }}>
         <Link
           href="/decide"
