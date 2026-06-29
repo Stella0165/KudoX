@@ -83,20 +83,20 @@ export default function CookPage() {
           className="text-xs font-medium px-4 py-2 rounded-full border transition-colors"
           style={{ color: "var(--text-secondary)", background: "var(--bg-card)", borderColor: "var(--border)" }}
         >
-          ← Change path
+          ← I don't want cook
         </Link>
       </nav>
 
-      <div className="relative z-10 w-full max-w-2xl space-y-5">
+      <div className="relative z-10 w-full max-w-2xl flex flex-col gap-10">
         {/* Heading */}
-        <div className="fade-up-1" style={{ marginBottom: "8px" }}>
+        <div className="fade-up-1 mb-10">
           <h1
             className="font-bold"
             style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(1.75rem, 5vw, 2.5rem)", letterSpacing: "-0.02em" }}
           >
             👨‍🍳 What should I cook?
           </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "8px" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "12px" }}>
             List what you&apos;ve got, how much time you have, and we&apos;ll build a recipe around it.
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function CookPage() {
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
             placeholder="e.g. chicken breast, garlic, olive oil, pasta, tomatoes, onion, parmesan cheese…"
-            className="w-full h-28 resize-none border-0 focus:outline-none bg-transparent"
+            className="w-full h-44 resize-none border-0 focus:outline-none bg-transparent text-base leading-relaxed"
             style={{ color: "var(--text-primary)" }}
           />
         </SectionBox>
