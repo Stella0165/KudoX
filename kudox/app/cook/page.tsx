@@ -80,11 +80,30 @@ export default function CookPage() {
                 </Link>
                 <Link
                     href="/decide"
-                    className="text-xs font-medium px-4 py-2 rounded-full border transition-colors"
-                    style={{ color: "var(--text-secondary)", background: "var(--bg-card)", borderColor: "var(--border)" }}
-                >
-                    ← I don't want cook
-                </Link>
+                    className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                    style={{
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                        color: "var(--text-secondary)",
+                    }}
+                    >
+                    <span className="transition-transform duration-300 group-hover:-translate-x-1">
+                        ←
+                    </span>
+
+                    <span className="group-hover:text-white transition-colors">
+                        I don't want to cook
+                    </span>
+
+                    {/* subtle glow */}
+                    <span
+                        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        style={{
+                        background:
+                            "radial-gradient(circle at center, rgba(200,241,53,0.12), transparent 70%)",
+                        }}
+                    />
+                    </Link>
             </nav>
 
             <div className="relative z-10 w-full max-w-2xl flex flex-col gap-10">
