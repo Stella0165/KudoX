@@ -46,16 +46,16 @@ export default function Home() {
 
       <p className="fade-up-3 text-lg md:text-xl leading-relaxed relative z-10"
         style={{ textAlign: 'center', maxWidth: '600px', marginBottom: '16px' }}>
-        An AI-powered eating decision &amp; cooking assistant.
+        An AI-powered eating decision & cooking assistant.
       </p>
       <p className="fade-up-3 relative z-10"
         style={{ color: 'var(--text-secondary)', fontSize: '1rem', textAlign: 'center', marginBottom: '40px' }}>
-        Tell us what you have. We&apos;ll tell you what to make.
+        Tell us what you have. We'll tell you what to make.
       </p>
 
       <div className="fade-up-4 flex flex-wrap gap-2 justify-center relative z-10"
         style={{ marginBottom: '48px', maxWidth: '600px' }}>
-        {['🍳 Recipe Generator', '🎯 Meal Decider', '🌏 10+ Cuisines', '⚡ Instant AI'].map(p => (
+        {['🍳 Recipe Generator', '🎯 Meal Decider', '🌏 10+ Cuisines \t'].map(p => (
           <span key={p} className="text-xs font-medium px-4 py-2 rounded-full border"
             style={{ color: 'var(--text-secondary)', background: 'var(--bg-card)', borderColor: 'var(--border)' }}>
             {p}
