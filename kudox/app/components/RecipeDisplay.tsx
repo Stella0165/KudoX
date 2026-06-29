@@ -184,35 +184,6 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
           ))}
         </ol>
       </div>
-
-      {/* Shopping list */}
-      {recipe.shoppingList && recipe.shoppingList.length > 0 ? (
-        <div>
-          <h4 className="font-semibold mb-2 text-sm" style={{ color: "var(--text-primary)" }}>
-            🛒 Shopping list
-          </h4>
-          <ul className="flex flex-wrap gap-2">
-            {recipe.shoppingList.map((item, i) => (
-              <li
-                key={i}
-                className="text-sm px-3 py-1 rounded-full border"
-                style={{ color: "#fbbf24", background: "rgba(251,191,36,0.08)", borderColor: "rgba(251,191,36,0.25)" }}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      {recipe.notes ? (
-        <div
-          className="text-sm rounded-md p-3 border"
-          style={{ color: "var(--text-secondary)", background: "rgba(255,255,255,0.03)", borderColor: "var(--border)" }}
-        >
-          💡 {recipe.notes}
-        </div>
-      ) : null}
     </div>
   );
 }
