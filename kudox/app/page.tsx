@@ -31,7 +31,7 @@ export default function Home() {
           marginBottom: '40px',
           marginTop: '20px',
         }}>
-        ✦ Powered by Gemini AI
+        ✦ Powered by Gemini <p> </p>
       </div>
 
       {/* Heading */}
@@ -123,7 +123,7 @@ export default function Home() {
               style={{
                 background: card.accent ? 'rgba(200,241,53,0.04)' : 'var(--bg-card)',
                 borderColor: card.accent ? 'rgba(200,241,53,0.25)' : 'var(--border)',
-                padding: '40px 48px',
+                padding: '48px',
               }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '24px' }}>{card.icon}</div>
               <h3 className="font-semibold" style={{
