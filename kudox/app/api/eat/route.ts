@@ -1,50 +1,35 @@
 import { NextRequest, NextResponse } from "next/server";
 import Groq from "groq-sdk";
-import type { RecipeResult } from "../recipe/route";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
 type EatRequestBody = {
-    cuisine: string;       // e.g. "Japanese", "Korean"
-    allergies: string[];   // e.g. ["nuts", "shellfish"]
+    cuisine: string;
+    allergies: string[];
 };
 
-const RECIPE_SCHEMA = {
+export type DishResult = {
+    name: string;
+    localName?: string;
+    cuisine: string;
+    priceRange: string;
+    description: string;
+    whereToFind: string;
+    allergenNote?: string;
+};
+
+const DISH_SCHEMA = {
     type: "object",
     properties: {
-        title: { type: "string" },
-        description: { type: "string" },
+        name: { type: "string" },
+        localName: { type: "string" },
         cuisine: { type: "string" },
-        baseServings: { type: "number" },
-        ingredients: {
-            type: "array",
-            items: {
-                type: "object",
-                properties: {
-                    name: { type: "string" },
-                    amount: { type: "number" },
-                    unit: { type: "string" },
-                    haveIt: { type: "boolean" },
-                },
-                required: ["name", "amount", "unit", "haveIt"],
-                additionalProperties: false,
-            },
-        },
-        steps: {
-            type: "array",
-            items: {
-                type: "object",
-                properties: {
-                    title: { type: "string" },
-                    content: { type: "string" },
-                    timerSeconds: { type: "number" },
-                },
-                required: ["title", "content", "timerSeconds"],
-                additionalProperties: false,
-            },
-        },
+        priceRange: { type: "string" },
+        description: { type: "string" },
+        whereToFind: { type: "string" },
+        allergenNote: { type: "string" },
     },
-    required: ["title", "description", "cuisine", "baseServings", "ingredients", "steps"],
+    required: ["name", "localName", "cuisine", "priceRange", "description", "whereToFind", "allergenNote"],
     additionalProperties: false,
 };
 
@@ -60,12 +45,19 @@ export async function POST(req: NextRequest) {
         }
 
         const allergyLine = body.allergies?.length
-            ? `Strictly avoid these allergens: ${body.allergies.join(", ")}.`
+            ? `Strictly avoid dishes containing these allergens: ${body.allergies.join(", ")}.`
             : "";
 
-        const prompt = `Suggest ONE ${body.cuisine} dish recipe. ${allergyLine}
-All ingredients haveIt: false. Use short, clear step descriptions. timerSeconds is required for every step — use 0 for steps with no waiting/cooking time, otherwise the number of seconds.
-Use real units like g, ml, tbsp, tsp, or "piece" for whole items.`;
+        const prompt = `Suggest ONE specific ${body.cuisine} dish that someone could order at a restaurant or find to buy (not cook themselves), in Malaysia. ${allergyLine}
+
+Return:
+- name: the dish's common English name
+- localName: the dish's name in its native language/script, if different from the English name (empty string if same)
+- cuisine: "${body.cuisine}"
+- priceRange: a realistic price range in Malaysian Ringgit for this dish at a typical restaurant or stall in Malaysia, formatted exactly like "RM 8 - RM 15"
+- description: 1-2 sentences describing what the dish is and tastes like
+- whereToFind: practical advice on where to find or order this dish (e.g. type of restaurant, delivery apps, or where it's commonly sold)
+- allergenNote: if any common allergens are typically present, mention them here as a heads up; otherwise empty string`;
 
         let completion;
         try {
@@ -75,13 +67,13 @@ Use real units like g, ml, tbsp, tsp, or "piece" for whole items.`;
                 response_format: {
                     type: "json_schema",
                     json_schema: {
-                        name: "recipe",
+                        name: "dish",
                         strict: true,
-                        schema: RECIPE_SCHEMA,
+                        schema: DISH_SCHEMA,
                     },
                 },
-                max_completion_tokens: 1500,
-                temperature: 0.4,
+                max_completion_tokens: 600,
+                temperature: 0.6,
             });
         } catch (err) {
             console.error("Groq error:", err);
@@ -90,19 +82,19 @@ Use real units like g, ml, tbsp, tsp, or "piece" for whole items.`;
 
         const rawText = completion.choices[0]?.message?.content || "";
 
-        let recipe: RecipeResult;
+        let dish: DishResult;
         try {
-            recipe = JSON.parse(rawText);
+            dish = JSON.parse(rawText);
         } catch {
             console.error("JSON parse failed:", rawText);
             return NextResponse.json({ error: "Invalid response from AI. Please try again." }, { status: 500 });
         }
 
-        if (!recipe.steps || !recipe.ingredients) {
-            return NextResponse.json({ error: "Incomplete recipe. Please try again." }, { status: 500 });
+        if (!dish.name || !dish.description) {
+            return NextResponse.json({ error: "Incomplete suggestion. Please try again." }, { status: 500 });
         }
 
-        return NextResponse.json(recipe, { status: 200 });
+        return NextResponse.json(dish, { status: 200 });
 
     } catch (err) {
         console.error("Unhandled error:", err);
