@@ -19,7 +19,7 @@ const PATHS: PathCard[] = [
     accent: true,
   },
   {
-    href: "/order",
+    href: "/eat",
     icon: "🍽️",
     title: "I want to decide what to eat",
     desc: "Not cooking? Tell us your mood or cuisine craving and we'll suggest something to order or eat out.",

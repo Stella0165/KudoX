@@ -22,7 +22,7 @@ const ALLERGY_OPTIONS = [
     { value: "nuts", label: "Nuts", emoji: "🥜" },
     { value: "shellfish", label: "Shellfish", emoji: "🦐" },
     { value: "dairy", label: "Dairy", emoji: "🥛" },
-    { value: "eggs", label: "Eggs", emoji: "🥚" },
+    { value: "eggs", label: "Eggs", emoji: "🥚" },  
     { value: "gluten", label: "Gluten", emoji: "🌾" },
     { value: "soy", label: "Soy", emoji: "🫘" },
 ];
