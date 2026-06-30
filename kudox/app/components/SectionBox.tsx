@@ -13,10 +13,14 @@ export default function SectionBox({ title, icon, accent = false, children }: Se
   return (
     <div className="rounded-2xl overflow-hidden border" style={{ borderColor: "var(--border)", background: "var(--bg-card)" }}>
       <div
-        className="flex items-center justify-between px-5 py-3.5 border-b"
+        className="flex items-center justify-between border-b"
         style={{
           background: accent ? "rgba(200,241,53,0.08)" : "transparent",
           borderColor: accent ? "rgba(200,241,53,0.2)" : "var(--border)",
+          paddingTop: "1.25rem",
+          paddingBottom: "1.25rem",
+          paddingLeft: "2rem",
+          paddingRight: "2rem",
         }}
       >
         <h2
@@ -31,7 +35,7 @@ export default function SectionBox({ title, icon, accent = false, children }: Se
           {title}
         </h2>
       </div>
-      <div style={{ padding: "0.75rem 2rem" }}>{children}</div>
+      <div style={{ padding: "1.75rem 2.5rem" }}>{children}</div>
     </div>
   );
 }
