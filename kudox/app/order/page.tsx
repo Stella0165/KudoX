@@ -55,7 +55,7 @@ export default function EatPage() {
             const res = await fetch("/api/eat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ cuisine, allergies }),
+                body: JSON.stringify({ cuisine, allergies: allAllergies }),
             });
 
             const data = await res.json();
