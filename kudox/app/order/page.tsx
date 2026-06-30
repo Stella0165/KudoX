@@ -125,7 +125,7 @@ export default function EatPage() {
 
             <div className="relative z-10 w-full max-w-2xl flex flex-col gap-10">
                 {/* Heading */}
-                <div className="mb-10">
+                <div className="fade-up-1 mb-10">
                     <h1
                         className="font-bold"
                         style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(1.75rem, 5vw, 2.5rem)", letterSpacing: "-0.02em" }}
