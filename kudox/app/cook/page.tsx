@@ -85,7 +85,7 @@ export default function CookPage() {
                     Kudo<span style={{ color: "var(--accent)" }}>X</span>
                 </Link>
                 <Link
-                    href="/decide"
+                    href="/order"
                     className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
                     style={{
                         background: "rgba(255,255,255,0.04)",
