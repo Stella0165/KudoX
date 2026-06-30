@@ -114,15 +114,20 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
 
       {/* Ingredients table */}
       <div>
-        <h4
-          className="text-sm font-semibold mb-4"
-          style={{ color: "var(--text-primary)" }}
-        >
+        <h4 className="font-semibold" style={{ 
+            fontSize: "1.1rem", 
+            color: "var(--text-primary)", 
+            marginBottom: "1.25rem" 
+          
+          }}>
           Ingredients
         </h4>
         <div
           className="rounded-xl overflow-hidden"
-          style={{ border: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.02)" }}
+          style={{ 
+            border: "1px solid rgba(255,255,255,0.07)", 
+            background: "rgba(255,255,255,0.02)" 
+          }}
         >
           {/* Table header */}
           <div
@@ -130,13 +135,26 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
             style={{
               gridTemplateColumns: "1fr auto auto",
               gap: "1rem",
+              padding: "0.75rem 1.75rem",
               borderBottom: "1px solid rgba(255,255,255,0.07)",
               background: "rgba(255,255,255,0.03)",
             }}
           >
-            <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Item</span>
-            <span className="text-xs font-medium uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Amount</span>
-            <span className="text-xs font-medium uppercase tracking-wide w-8" style={{ color: "var(--text-muted)" }} />
+            <span className="text-xs font-medium uppercase tracking-wide" style={{ 
+              color: "var(--text-muted)" 
+              }}>
+                Item
+            </span>
+
+            <span className="text-xs font-medium uppercase tracking-wide" style={{ 
+              color: "var(--text-muted)" }}>
+                Amount
+            </span>
+
+            <span className="text-xs font-medium uppercase tracking-wide w-8" style={{ 
+              color: "var(--text-muted)" 
+            }} 
+          />
           </div>
 
           {/* Rows */}
@@ -147,6 +165,7 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
               style={{
                 gridTemplateColumns: "1fr auto auto",
                 gap: "1rem",
+                padding: "1.25rem 1.75rem",
                 borderBottom: i < recipe.ingredients.length - 1
                   ? "1px solid rgba(255,255,255,0.05)"
                   : "none",

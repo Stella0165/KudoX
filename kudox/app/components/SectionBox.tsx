@@ -31,7 +31,7 @@ export default function SectionBox({ title, icon, accent = false, children }: Se
           {title}
         </h2>
       </div>
-      <div className="p-5">{children}</div>
+      <div style={{ padding: "0.75rem 2rem" }}>{children}</div>
     </div>
   );
 }
