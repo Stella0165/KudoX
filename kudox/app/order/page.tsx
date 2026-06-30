@@ -185,6 +185,39 @@ export default function EatPage() {
                                 </button>
                             );
                         })}
+
+                        <div
+                            className="flex items-center transition-all duration-300"
+                            style={{
+                                padding: "0.875rem 1.5rem",
+                                borderRadius: "9999px",
+                                background: otherAllergy
+                                    ? "linear-gradient(135deg, rgba(251,146,60,0.28), rgba(251,146,60,0.1))"
+                                    : "rgba(255,255,255,0.04)",
+                                border: otherAllergy
+                                    ? "1.5px solid rgba(251,146,60,0.55)"
+                                    : "1.5px solid rgba(255,255,255,0.09)",
+                                gap: "0.5rem",
+                            }}
+                        >
+                            <span style={{ fontSize: "1.15rem" }}>✏️</span>
+                            <input
+                                type="text"
+                                value={otherAllergy}
+                                onChange={(e) => setOtherAllergy(e.target.value)}
+                                placeholder="Other allergy…"
+                                style={{
+                                    background: "transparent",
+                                    border: "none",
+                                    outline: "none",
+                                    fontSize: "1rem",
+                                    color: otherAllergy ? "#fdba74" : "var(--text-secondary)",
+                                    fontFamily: "inherit",
+                                    width: "120px",
+                                }}
+                            />
+                        </div>
+
                     </div>
                 </SectionBox>
 
