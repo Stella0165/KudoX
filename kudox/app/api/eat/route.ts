@@ -72,7 +72,7 @@ Return:
                         schema: DISH_SCHEMA,
                     },
                 },
-                max_completion_tokens: 600,
+                max_completion_tokens: 1200,
                 temperature: 0.6,
             });
         } catch (err) {
