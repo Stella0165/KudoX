@@ -42,14 +42,16 @@ export default function EatPage() {
             setOtherAllergy("");
             return;
         }
-        setAllergies((prev) => {
-            const notNone = prev.filter((v) => v !== "none");
-            return notNone.includes(value)
-                ? notNone.filter((v) => v !== value)
-                : [...notNone, value];
-        });
 
-        setAllergies((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
+        setAllergies((prev) => {
+            const filtered = prev.filter((v) => v !== "none");
+
+            if (filtered.includes(value)) {
+                return filtered.filter((v) => v !== value);
+            }
+
+            return [...filtered, value];
+        });
     }
 
     async function handleSubmit() {
@@ -101,7 +103,6 @@ export default function EatPage() {
                 style={{ background: "radial-gradient(ellipse at center, rgba(200,241,53,0.07) 0%, transparent 70%)" }}
             />
 
-            {/* Nav */}
             <nav
                 className="w-full max-w-2xl flex items-center justify-between relative z-10"
                 style={{ paddingTop: "36px", paddingBottom: "28px" }}
@@ -124,7 +125,6 @@ export default function EatPage() {
             </nav>
 
             <div className="relative z-10 w-full max-w-2xl flex flex-col gap-10">
-                {/* Heading */}
                 <div className="fade-up-1 mb-10">
                     <h1
                         className="font-bold"
@@ -137,7 +137,7 @@ export default function EatPage() {
                     </p>
                 </div>
 
-                {/* Cuisine picker */}
+                {/* Cuisine */}
                 <SectionBox title="What style of food?" icon={<span style={{ fontSize: "1.3rem" }}>🌍</span>}>
                     <div className="flex flex-wrap" style={{ gap: "0.875rem" }}>
                         {CUISINE_OPTIONS.map((item) => {
@@ -169,7 +169,7 @@ export default function EatPage() {
                     </div>
                 </SectionBox>
 
-                {/* Allergy picker */}
+                {/* Allergy */}
                 <SectionBox title="Any allergies?" icon={<span style={{ fontSize: "1.3rem" }}>⚠️</span>}>
                     <div className="flex flex-wrap" style={{ gap: "0.875rem" }}>
                         {ALLERGY_OPTIONS.map((item) => {
@@ -257,7 +257,11 @@ export default function EatPage() {
                 {error ? (
                     <div
                         className="text-sm rounded-md p-3 border"
-                        style={{ color: "#fca5a5", background: "rgba(248,113,113,0.08)", borderColor: "rgba(248,113,113,0.25)" }}
+                        style={{ 
+                            color: "#fca5a5", 
+                            background: "rgba(248,113,113,0.08)", 
+                            borderColor: "rgba(248,113,113,0.25)" 
+                        }}
                     >
                         {error}
                     </div>
@@ -267,8 +271,10 @@ export default function EatPage() {
                 {(loading || dish) && (
                     <SectionBox title="Dish Suggestion" icon={<span>✨</span>} accent>
                         {loading ? (
-                            <div className="py-8 text-center text-sm" style={{ color: "var(--text-secondary)" }}>
-                                Finding something delicious…
+                            <div className="py-8 text-center text-sm" style={{ 
+                                    color: "var(--text-secondary)" 
+                                }}>
+                                Finding something delicious delicacies...
                             </div>
                         ) : dish ? (
                             <DishDisplay dish={dish} />
