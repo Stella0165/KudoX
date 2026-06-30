@@ -33,6 +33,7 @@ export default function EatPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [dish, setDish] = useState<DishResult | null>(null);
+    const [otherAllergy, setOtherAllergy] = useState<string>("");
 
     function toggleAllergy(value: string) {
         setAllergies((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
@@ -46,6 +47,8 @@ export default function EatPage() {
             setError("Please pick a cuisine you're craving.");
             return;
         }
+
+        const allAllergies = otherAllergy.trim() ? [...allergies, otherAllergy.trim()] : allergies;
 
         setLoading(true);
         try {
