@@ -3,8 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import SectionBox from "../components/SectionBox";
-import RecipeDisplay from "../components/RecipeDisplay";
-import type { RecipeResult } from "../api/recipe/route";
+import DishDisplay from "../components/DishDisplay";
+import type { DishResult } from "../api/eat/route";
 
 const CUISINE_OPTIONS = [
     { value: "Japanese", emoji: "🍣" },
@@ -32,7 +32,7 @@ export default function EatPage() {
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [recipe, setRecipe] = useState<RecipeResult | null>(null);
+    const [dish, setDish] = useState<DishResult | null>(null);
 
     function toggleAllergy(value: string) {
         setAllergies((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
@@ -40,7 +40,7 @@ export default function EatPage() {
 
     async function handleSubmit() {
         setError(null);
-        setRecipe(null);
+        setDish(null);
 
         if (!cuisine) {
             setError("Please pick a cuisine you're craving.");
@@ -62,12 +62,12 @@ export default function EatPage() {
                 return;
             }
 
-            if (!data || !Array.isArray(data.steps) || !Array.isArray(data.ingredients)) {
-                setError("Received an incomplete recipe. Please try again.");
+            if (!data || !data.name || !data.description) {
+                setError("Received an incomplete suggestion. Please try again.");
                 return;
             }
 
-            setRecipe(data as RecipeResult);
+            setDish(data as DishResult);
         } catch {
             setError("Couldn't reach the server. Check your connection and try again.");
         } finally {
@@ -117,7 +117,7 @@ export default function EatPage() {
                         🍽️ What should I eat?
                     </h1>
                     <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "12px" }}>
-                        Pick a cuisine you're craving and tell us your allergies — we'll suggest a dish.
+                        Pick a cuisine you're craving and tell us your allergies — we'll suggest a dish to order or find.
                     </p>
                 </div>
 
@@ -215,14 +215,14 @@ export default function EatPage() {
                 ) : null}
 
                 {/* Result */}
-                {(loading || recipe) && (
+                {(loading || dish) && (
                     <SectionBox title="Dish Suggestion" icon={<span>✨</span>} accent>
                         {loading ? (
                             <div className="py-8 text-center text-sm" style={{ color: "var(--text-secondary)" }}>
                                 Finding something delicious…
                             </div>
-                        ) : recipe ? (
-                            <RecipeDisplay recipe={recipe} />
+                        ) : dish ? (
+                            <DishDisplay dish={dish} />
                         ) : null}
                     </SectionBox>
                 )}
