@@ -53,12 +53,18 @@ export default function CookPage() {
 
             const data = await res.json();
 
-            if (!res.ok) {
-                setError(data.error || "Something went wrong. Please try again.");
-                return;
-            }
+                if (!res.ok) {
+                    setError(data.error || "Something went wrong. Please try again.");
+                    return;
+                }
 
-            setRecipe(data as RecipeResult);
+                if (!data || !Array.isArray(data.steps) || !Array.isArray(data.ingredients)) {
+                    setError("Received an incomplete recipe. Please try again.");
+                    return;
+                }
+
+                setRecipe(data as RecipeResult);
+
         } catch {
             setError("Couldn't reach the server. Check your connection and try again.");
         } finally {
