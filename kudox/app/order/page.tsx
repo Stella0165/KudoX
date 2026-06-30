@@ -18,6 +18,7 @@ const CUISINE_OPTIONS = [
 ];
 
 const ALLERGY_OPTIONS = [
+    { value: "none", label: "None", emoji: "✅" },
     { value: "nuts", label: "Nuts", emoji: "🥜" },
     { value: "shellfish", label: "Shellfish", emoji: "🦐" },
     { value: "dairy", label: "Dairy", emoji: "🥛" },
@@ -36,6 +37,18 @@ export default function EatPage() {
     const [otherAllergy, setOtherAllergy] = useState<string>("");
 
     function toggleAllergy(value: string) {
+        if (value === "none") {
+            setAllergies((prev) => (prev.includes("none") ? [] : ["none"]));
+            setOtherAllergy("");
+            return;
+        }
+        setAllergies((prev) => {
+            const notNone = prev.filter((v) => v !== "none");
+            return notNone.includes(value)
+                ? notNone.filter((v) => v !== value)
+                : [...notNone, value];
+        });
+
         setAllergies((prev) => (prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]));
     }
 
@@ -205,7 +218,7 @@ export default function EatPage() {
                                 type="text"
                                 value={otherAllergy}
                                 onChange={(e) => setOtherAllergy(e.target.value)}
-                                placeholder="Other allergy…"
+                                placeholder="Other allergy..."
                                 style={{
                                     background: "transparent",
                                     border: "none",
