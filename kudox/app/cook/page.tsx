@@ -72,24 +72,25 @@ export default function CookPage() {
     }
 
     return (
-        <main className="min-h-screen min-w-[360px] flex flex-col items-center relative overflow-hidden" style={{ padding: "0 24px 120px 24px" }}>
+        <main className="min-h-screen min-w-[360px] flex flex-col items-center relative overflow-hidden" style={{ padding: "0 32px 160px 32px" }}>
             <div
                 className="fixed top-[-20%] left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full pointer-events-none"
                 style={{ background: "radial-gradient(ellipse at center, rgba(200,241,53,0.07) 0%, transparent 70%)" }}
             />
 
             {/* Nav */}
-            <nav className="w-full max-w-2xl flex items-center justify-between relative z-10" style={{ paddingTop: "36px", paddingBottom: "28px" }}>
+            <nav className="w-full max-w-2xl flex items-center justify-between relative z-10" style={{ paddingTop: "44px", paddingBottom: "36px" }}>
                 <Link href="/" style={{ fontFamily: "var(--font-space-grotesk)" }} className="text-xl font-bold tracking-tight">
                     Kudo<span style={{ color: "var(--accent)" }}>X</span>
                 </Link>
                 <Link
                     href="/decide"
-                    className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                    className="group relative inline-flex items-center gap-2 rounded-full text-sm font-medium transition-all duration-300"
                     style={{
                         background: "rgba(255,255,255,0.04)",
                         border: "1px solid rgba(255,255,255,0.08)",
                         color: "var(--text-secondary)",
+                        padding: "10px 20px",
                     }}
                     >
                     <span className="transition-transform duration-300 group-hover:-translate-x-1">
@@ -100,7 +101,6 @@ export default function CookPage() {
                         I don't want to cook
                     </span>
 
-                    {/* subtle glow */}
                     <span
                         className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{
@@ -111,21 +111,20 @@ export default function CookPage() {
                     </Link>
             </nav>
 
-            <div className="relative z-10 w-full max-w-2xl flex flex-col gap-10">
+            <div className="relative z-10 w-full max-w-2xl flex flex-col gap-12">
                 {/* Heading */}
-                <div className="fade-up-1 mb-10">
+                <div className="fade-up-1" style={{ marginBottom: "8px" }}>
                     <h1
                         className="font-bold"
                         style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(1.75rem, 5vw, 2.5rem)", letterSpacing: "-0.02em" }}
                     >
                         👨‍🍳 What should I cook?
                     </h1>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "12px" }}>
+                    <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", marginTop: "14px" }}>
                         List what you&apos;ve got, how much time you have, and we&apos;ll build a recipe around it.
                     </p>
                 </div>
 
-                {/* Ingredients */}
                 <SectionBox title="Ingredients I Have" icon={<span>🧺</span>}>
                     <textarea
                         value={ingredients}
@@ -136,7 +135,6 @@ export default function CookPage() {
                     />
                 </SectionBox>
 
-                {/* Cooking time */}
                 <SectionBox title="Cooking Time Available" icon={<span>⏱️</span>}>
                     <TimeSlider value={timeMinutes} onChange={setTimeMinutes} />
                 </SectionBox>
@@ -152,7 +150,7 @@ export default function CookPage() {
                         key={item.value}
                         type="button"
                         onClick={() => toggleDietary(item.value)}
-                        className="relative px-3 py-2 rounded-full text-sm font-medium transition-all duration-300"
+                        className="relative rounded-full text-sm font-medium transition-all duration-300"
                         style={{
                             background: active
                             ? "linear-gradient(135deg, rgba(200,241,53,0.25), rgba(200,241,53,0.08))"
@@ -165,6 +163,7 @@ export default function CookPage() {
                             ? "0 0 20px rgba(200,241,53,0.15)"
                             : "none",
                             transform: active ? "translateY(-1px)" : "translateY(0px)",
+                            padding: "12px 20px",
                         }}
                         >
                             
@@ -194,18 +193,18 @@ export default function CookPage() {
                 </div>
                 </SectionBox>
 
-                {/* Actions */}
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         type="button"
                         onClick={() => handleSubmit(false)}
                         disabled={loading}
-                        className="flex-1 font-bold py-3.5 rounded-full transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
+                        className="flex-1 font-bold rounded-full transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0"
                         style={{
                             fontFamily: "var(--font-space-grotesk)",
                             background: "var(--accent)",
                             color: "#0D0D0C",
                             boxShadow: "0 0 30px rgba(200,241,53,0.2)",
+                            padding: "16px 0",
                         }}
                     >
                         {loading ? "Cooking up ideas…" : "✨ Suggest a recipe"}
@@ -214,18 +213,17 @@ export default function CookPage() {
                         type="button"
                         onClick={() => handleSubmit(true)}
                         disabled={loading}
-                        className="sm:w-48 font-semibold py-3.5 rounded-full border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                        style={{ borderColor: "var(--border)", background: "var(--bg-card)", color: "var(--text-primary)" }}
+                        className="sm:w-52 font-semibold rounded-full border transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        style={{ borderColor: "var(--border)", background: "var(--bg-card)", color: "var(--text-primary)", padding: "16px 0" }}
                     >
                         🎲 Surprise Me
                     </button>
                 </div>
 
-                {/* Error state */}
                 {error ? (
                     <div
-                        className="text-sm rounded-md p-3 border"
-                        style={{ color: "#fca5a5", background: "rgba(248,113,113,0.08)", borderColor: "rgba(248,113,113,0.25)" }}
+                        className="text-sm rounded-md border"
+                        style={{ color: "#fca5a5", background: "rgba(248,113,113,0.08)", borderColor: "rgba(248,113,113,0.25)", padding: "16px" }}
                     >
                         {error}
                     </div>
@@ -235,7 +233,7 @@ export default function CookPage() {
                 {(loading || recipe) && (
                     <SectionBox title="Recipe Suggestion" icon={<span>✨</span>} accent>
                         {loading ? (
-                            <div className="py-8 text-center text-sm" style={{ color: "var(--text-secondary)" }}>
+                            <div className="text-center text-sm" style={{ color: "var(--text-secondary)", padding: "40px 0" }}>
                                 Cooking up a suggestion…
                             </div>
                         ) : recipe ? (

@@ -34,10 +34,10 @@ function StepTimer({ seconds }: { seconds: number }) {
   const secs = remaining % 60;
 
   return (
-    <div className="flex items-center gap-2 mt-2">
+    <div className="flex items-center gap-3 mt-3">
       <span
-        className="text-sm font-mono px-2 py-1 rounded"
-        style={{ color: "var(--text-primary)", background: "rgba(255,255,255,0.06)" }}
+        className="text-sm font-mono rounded"
+        style={{ color: "var(--text-primary)", background: "rgba(255,255,255,0.06)", padding: "6px 10px" }}
       >
         ⏱ {mins}:{String(secs).padStart(2, "0")}
       </span>
@@ -45,8 +45,8 @@ function StepTimer({ seconds }: { seconds: number }) {
         <button
           type="button"
           onClick={() => setRunning((r) => !r)}
-          className="text-xs font-medium px-3 py-1 rounded-full border transition-colors"
-          style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+          className="text-xs font-medium rounded-full border transition-colors"
+          style={{ borderColor: "var(--border)", color: "var(--text-secondary)", padding: "6px 14px" }}
         >
           {running ? "Pause" : "Start"}
         </button>
@@ -54,8 +54,8 @@ function StepTimer({ seconds }: { seconds: number }) {
         <button
           type="button"
           onClick={() => setRemaining(seconds)}
-          className="text-xs font-medium px-3 py-1 rounded-full border transition-colors"
-          style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+          className="text-xs font-medium rounded-full border transition-colors"
+          style={{ borderColor: "var(--border)", color: "var(--text-secondary)", padding: "6px 14px" }}
         >
           Reset
         </button>
@@ -69,9 +69,8 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
   const ratio = servings / (recipe.baseServings || 2);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
 
-      {/* Title & meta */}
       <div>
         <h3
           className="text-xl font-semibold"
@@ -81,24 +80,23 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
         </h3>
         {recipe.cuisine ? (
           <span
-            className="inline-block mt-2 text-xs font-medium px-2.5 py-0.5 rounded-full border"
-            style={{ background: "rgba(200,241,53,0.1)", color: "var(--accent)", borderColor: "rgba(200,241,53,0.25)" }}
+            className="inline-block mt-3 text-xs font-medium rounded-full border"
+            style={{ background: "rgba(200,241,53,0.1)", color: "var(--accent)", borderColor: "rgba(200,241,53,0.25)", padding: "4px 12px" }}
           >
             {recipe.cuisine}
           </span>
         ) : null}
-        <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+        <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
           {recipe.description}
         </p>
       </div>
 
-      {/* Servings control */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Servings</span>
         <button
           type="button"
           onClick={() => setServings((s) => Math.max(1, s - 1))}
-          className="w-8 h-8 rounded-full border transition-colors"
+          className="w-9 h-9 rounded-full border transition-colors"
           style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           aria-label="Decrease servings"
         >−</button>
@@ -106,18 +104,17 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
         <button
           type="button"
           onClick={() => setServings((s) => Math.min(20, s + 1))}
-          className="w-8 h-8 rounded-full border transition-colors"
+          className="w-9 h-9 rounded-full border transition-colors"
           style={{ borderColor: "var(--border)", color: "var(--text-primary)" }}
           aria-label="Increase servings"
         >+</button>
       </div>
 
-      {/* Ingredients table */}
       <div>
         <h4 className="font-semibold" style={{ 
             fontSize: "1.1rem", 
             color: "var(--text-primary)", 
-            marginBottom: "1.25rem" 
+            marginBottom: "1.5rem" 
           
           }}>
           Ingredients
@@ -129,13 +126,12 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
             background: "rgba(255,255,255,0.02)" 
           }}
         >
-          {/* Table header */}
           <div
-            className="grid px-5 py-3"
+            className="grid"
             style={{
               gridTemplateColumns: "1fr auto auto",
               gap: "1rem",
-              padding: "0.75rem 1.75rem",
+              padding: "1rem 2rem",
               borderBottom: "1px solid rgba(255,255,255,0.07)",
               background: "rgba(255,255,255,0.03)",
             }}
@@ -157,15 +153,14 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
           />
           </div>
 
-          {/* Rows */}
           {recipe.ingredients.map((ing, i) => (
             <div
               key={i}
-              className="grid items-center px-5 py-5"
+              className="grid items-center"
               style={{
                 gridTemplateColumns: "1fr auto auto",
                 gap: "1rem",
-                padding: "1.25rem 1.75rem",
+                padding: "1.5rem 2rem",
                 borderBottom: i < recipe.ingredients.length - 1
                   ? "1px solid rgba(255,255,255,0.05)"
                   : "none",
@@ -180,22 +175,24 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
               <div className="w-10 flex justify-end">
                 {!ing.haveIt ? (
                   <span
-                    className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap font-medium"
+                    className="text-xs rounded-full whitespace-nowrap font-medium"
                     style={{
                       color: "#fbbf24",
                       background: "rgba(251,191,36,0.1)",
                       border: "1px solid rgba(251,191,36,0.2)",
+                      padding: "4px 12px",
                     }}
                   >
                     buy
                   </span>
                 ) : (
                   <span
-                    className="text-xs px-2.5 py-1 rounded-full whitespace-nowrap font-medium"
+                    className="text-xs rounded-full whitespace-nowrap font-medium"
                     style={{
                       color: "rgba(200,241,53,0.7)",
                       background: "rgba(200,241,53,0.07)",
                       border: "1px solid rgba(200,241,53,0.15)",
+                      padding: "4px 12px",
                     }}
                   >
                     ✓
@@ -208,18 +205,18 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
       </div>
 
       {/* Steps */}
-      <div style={{ marginTop: "2.5rem" }}>
+      <div style={{ marginTop: "3rem" }}>
         <h4
-          className="text-sm font-semibold mb-4"
-          style={{ color: "var(--text-primary)" }}
+          className="text-sm font-semibold"
+          style={{ color: "var(--text-primary)", marginBottom: "1.25rem" }}
         >
           Steps
         </h4>
-        <ol className="space-y-7">
+        <ol className="space-y-8">
           {recipe.steps.map((step, i) => (
-            <li key={i} className="flex gap-4" style={{ marginBottom: "0.5rem" }}>
+            <li key={i} className="flex gap-5">
               <span
-                className="flex-shrink-0 w-7 h-7 rounded-full text-sm font-semibold flex items-center justify-center mt-0.5"
+                className="flex-shrink-0 w-8 h-8 rounded-full text-sm font-semibold flex items-center justify-center mt-0.5"
                 style={{ background: "var(--accent)", color: "#0D0D0C" }}
               >
                 {i + 1}
@@ -228,7 +225,7 @@ export default function RecipeDisplay({ recipe }: RecipeDisplayProps) {
                 <p className="font-medium" style={{ fontSize: "1rem", color: "var(--text-primary)" }}>
                   {step.title}
                 </p>
-                <p className="mt-1 leading-relaxed" style={{ fontSize: "0.95rem", color: "var(--text-secondary)" }}>
+                <p className="mt-2 leading-relaxed" style={{ fontSize: "0.95rem", color: "var(--text-secondary)" }}>
                   {step.content}
                 </p>
                 {step.timerSeconds ? <StepTimer seconds={step.timerSeconds} /> : null}

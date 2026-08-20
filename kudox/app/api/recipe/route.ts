@@ -31,22 +31,34 @@ type SurpriseRequestBody = { mode: "surprise"; timeMinutes: number; dietary: str
 type RequestBody = CookRequestBody | EatRequestBody | SurpriseRequestBody;
 
 function buildPrompt(body: RequestBody): string {
-    const dietary = body.dietary?.length ? `Dietary: ${body.dietary.join(", ")}.` : "";
-    const time    = `Time: ${body.timeMinutes} min.`;
+    const dietary = body.dietary?.length ? `Dietary restrictions: ${body.dietary.join(", ")}.` : "";
+    const time    = `Must be realistically cookable within ${body.timeMinutes} minutes.`;
+
+    const groundingRules = `
+Rules:
+- The recipe must be a real, recognized dish from an actual culinary tradition — not an invented fusion or novelty combination.
+- Flavor pairings must be ones a professional chef would consider sensible and appetizing, not shocking or gimmicky.
+- Do not combine sweet fruit with savory/spicy elements unless it's a well-established dish (e.g. mango salsa, pineapple fried rice are fine — invented combos are not).
+- Prefer well-known, comforting, or classic recipes over obscure or experimental ones.
+`.trim();
 
     if (body.mode === "cook") {
         return `Suggest ONE recipe using these ingredients: ${body.ingredients}. ${time} ${dietary}
+${groundingRules}
 Mark haveIt true for ingredients the user has, false for ones they need to buy.
 Use short step descriptions. timerSeconds only for waiting/boiling/baking steps, else null.`;
     }
 
     if (body.mode === "eat") {
-        return `Suggest ONE ${body.cuisine} recipe. ${time} ${dietary}
+        return `Suggest ONE well-known, authentic ${body.cuisine} recipe that a restaurant in that cuisine would actually serve. ${time} ${dietary}
+${groundingRules}
 All ingredients haveIt: false. Use short step descriptions. timerSeconds only for waiting steps, else null.`;
     }
 
-    return `Suggest ONE surprising, interesting recipe from any cuisine. ${time} ${dietary}
-All ingredients haveIt: false. Use short step descriptions. timerSeconds only for waiting steps, else null. Avoid obvious choices.`;
+    return `Suggest ONE recipe that is well-known within its cuisine but perhaps less common on Western menus — a comforting, authentic dish, not an invented one. ${time} ${dietary}
+${groundingRules}
+All ingredients haveIt: false. Use short step descriptions. timerSeconds only for waiting steps, else null.
+Favor dishes that are popular in their home country/culture, even if unfamiliar to the user — not dishes that are unusual within their own tradition.`;
 }
 
 const RECIPE_SCHEMA = {

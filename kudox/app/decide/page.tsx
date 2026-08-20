@@ -72,7 +72,7 @@ export default function DecidePage() {
             <Link
               key={card.href}
               href={card.href}
-              className={`fade-up-${i + 2} flex flex-col rounded-2xl border transition-all duration-200 hover:-translate-y-1.5 focus:outline-none`}
+              className={`path-card fade-up-${i + 2} flex flex-col rounded-2xl border transition-all duration-200 hover:-translate-y-1.5 focus:outline-none`}
               style={{
                 background: card.accent ? "rgba(200,241,53,0.04)" : "var(--bg-card)",
                 borderColor: card.accent ? "rgba(200,241,53,0.25)" : "var(--border)",
@@ -80,17 +80,40 @@ export default function DecidePage() {
               }}
             >
               <div style={{ fontSize: "2.75rem", marginBottom: "24px" }}>{card.icon}</div>
-              <h3
-                className="font-semibold"
-                style={{
-                  fontFamily: "var(--font-space-grotesk)",
-                  letterSpacing: "-0.02em",
-                  fontSize: "1.35rem",
-                  marginBottom: "16px",
-                }}
-              >
-                {card.title}
-              </h3>
+
+              <div className="flex items-center justify-between" style={{ marginBottom: "16px" }}>
+                <h3
+                  className="font-semibold"
+                  style={{
+                    fontFamily: "var(--font-space-grotesk)",
+                    letterSpacing: "-0.02em",
+                    fontSize: "1.35rem",
+                  }}
+                >
+                  {card.title}
+                </h3>
+                <svg
+                  className="path-arrow"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    color: "var(--accent)",
+                    opacity: 0,
+                    transform: "translateX(-4px)",
+                    transition: "all 0.2s",
+                    flexShrink: 0,
+                  }}
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+
               <p
                 className="leading-relaxed"
                 style={{
@@ -103,15 +126,17 @@ export default function DecidePage() {
                 {card.desc}
               </p>
               <span
-                className="self-start text-xs font-medium px-3 py-1 rounded-full border"
-                style={{
-                  color: "var(--accent)",
-                  background: "rgba(200,241,53,0.08)",
-                  borderColor: "rgba(200,241,53,0.15)",
-                }}
-              >
-                {card.tag}
-              </span>
+  className="self-start font-small rounded-full border"
+  style={{
+    color: "var(--accent)",
+    background: "rgba(200,241,53,0.05)",
+    borderColor: "rgba(200,241,53,0.15)",
+    fontSize: "1rem",
+    padding: "5px 8px",
+  }}
+>
+  {card.tag}
+</span>
             </Link>
           ))}
         </div>
